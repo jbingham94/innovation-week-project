@@ -8,8 +8,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.response import Response
 
-from example_app.models import Secret
-from example_app.serializers import SecretSerializer, UserSerializer
+from example_app.models import Secret, Post
+from example_app.serializers import SecretSerializer, UserSerializer, PostSerializer
 
 
 def index_view(request):
@@ -49,3 +49,9 @@ class UserDetailAPIView(RetrieveAPIView):
 
     def get_queryset(self):
         return User.objects.filter(pk=self.request.user.id)
+
+class PostListAPIView(ListCreateAPIView):
+    serializer_class = PostSerializer
+
+    def get_queryset(self):
+        return Post.objects.all()

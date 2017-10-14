@@ -1,6 +1,6 @@
 
 from rest_framework import serializers
-from example_app.models import Secret
+from example_app.models import Secret, Post, UserProfile
 
 from django.contrib.auth.models import User
 
@@ -15,4 +15,16 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ["username", "id"]
+        fields = ['username', 'id']
+
+
+class PostSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Post
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = UserProfile

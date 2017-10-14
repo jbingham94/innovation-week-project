@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from example_app.views import index_view, SecretListAPIView, SecretDetailAPIView, ObtainAuthToken, UserDetailAPIView
+from example_app.views import index_view, SecretListAPIView, SecretDetailAPIView, ObtainAuthToken, UserDetailAPIView, PostListAPIView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -24,5 +24,6 @@ urlpatterns = [
     url(r'^api/secrets/$', SecretListAPIView.as_view(), name="secret_list_api_view"),
     url(r'^api/secrets/(?P<pk>\d+)/$', SecretDetailAPIView.as_view(), name="secret_detail_api_view"),
     url(r'^api/users/(?P<pk>\d+)/$', UserDetailAPIView.as_view(), name="user_detail_api_view"),
+    url(r'^api/posts/$', PostListAPIView.as_view(), name="post_list_api_view"),
     url(r'^', index_view, name="index_view"),
 ]

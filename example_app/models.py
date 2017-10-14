@@ -13,8 +13,8 @@ class Secret(models.Model):
 
 class UserProfile(models.Model):
     user = models.ForeignKey('auth.user')
-    upvoted_posts = models.ManyToManyField('Post', related_name='upvoted_posts')
-    downvoted_posts = models.ManyToManyField('Post', related_name='downvoted_posts')
+    upvoted_posts = models.ManyToManyField('Post', related_name='upvoted_posts', blank=True)
+    downvoted_posts = models.ManyToManyField('Post', related_name='downvoted_posts', blank=True)
 
 
 class Category(models.Model):
@@ -28,8 +28,8 @@ class Post(models.Model):
     title = models.CharField(max_length=300)
     body = models.TextField()
     score = models.IntegerField()
-    upvoters = models.ManyToManyField(UserProfile, related_name='upvoters')
-    downvoters = models.ManyToManyField(UserProfile, related_name='downvoters')
+    upvoters = models.ManyToManyField(UserProfile, related_name='upvoters', blank=True)
+    downvoters = models.ManyToManyField(UserProfile, related_name='downvoters', blank=True)
 
 
 class Comment(models.Model):
