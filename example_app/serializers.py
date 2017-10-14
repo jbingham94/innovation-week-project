@@ -1,6 +1,6 @@
 
-from rest_framework import serializers
-from example_app.models import Secret, Post, UserProfile
+from rest_framework import serializers, fields
+from example_app.models import Secret, Post, UserProfile, Category, Comment
 
 from django.contrib.auth.models import User
 
@@ -19,6 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
+    author_username = serializers.ReadOnlyField()
 
     class Meta:
         model = Post
@@ -28,3 +29,15 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserProfile
+
+
+class CategorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Category
+
+
+class CommentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Comment

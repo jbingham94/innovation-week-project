@@ -16,9 +16,15 @@ class UserProfile(models.Model):
     upvoted_posts = models.ManyToManyField('Post', related_name='upvoted_posts', blank=True)
     downvoted_posts = models.ManyToManyField('Post', related_name='downvoted_posts', blank=True)
 
+    def __unicode__(self):
+        return self.user.username
+
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
+
+    def __unicode__(self):
+        return self.name
 
 
 class Post(models.Model):
@@ -30,6 +36,10 @@ class Post(models.Model):
     score = models.IntegerField()
     upvoters = models.ManyToManyField(UserProfile, related_name='upvoters', blank=True)
     downvoters = models.ManyToManyField(UserProfile, related_name='downvoters', blank=True)
+
+    @property
+    def author_username(self):
+        return self.author.user.username
 
 
 class Comment(models.Model):

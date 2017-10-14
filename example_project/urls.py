@@ -16,14 +16,29 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from example_app.views import index_view, SecretListAPIView, SecretDetailAPIView, ObtainAuthToken, UserDetailAPIView, PostListAPIView
+from example_app.views import (
+    index_view,
+    SecretListAPIView,
+    SecretDetailAPIView,
+    ObtainAuthToken,
+    UserListAPIView,
+    UserDetailAPIView,
+    PostListAPIView,
+    UserProfileListAPIView,
+    CategoryListAPIView,
+    CommentListAPIView
+)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/api-token-auth/$', ObtainAuthToken.as_view(), name="obtain_auth_token"),
     url(r'^api/secrets/$', SecretListAPIView.as_view(), name="secret_list_api_view"),
     url(r'^api/secrets/(?P<pk>\d+)/$', SecretDetailAPIView.as_view(), name="secret_detail_api_view"),
+    url(r'^api/users/$', UserListAPIView.as_view(), name="user_list_api_view"),
     url(r'^api/users/(?P<pk>\d+)/$', UserDetailAPIView.as_view(), name="user_detail_api_view"),
     url(r'^api/posts/$', PostListAPIView.as_view(), name="post_list_api_view"),
+    url(r'^api/user-profiles/$', UserProfileListAPIView.as_view(), name="user_profile_list_api_view"),
+    url(r'^api/categories/$', CategoryListAPIView.as_view(), name="category_list_api_view"),
+    url(r'^api/comments/$', CommentListAPIView.as_view(), name="comment_list_api_view"),
     url(r'^', index_view, name="index_view"),
 ]
