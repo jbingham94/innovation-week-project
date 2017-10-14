@@ -8,3 +8,5 @@ bower_components/
 tmp/
 dist/
 venv/
+.idea/
+example_app/migrations
