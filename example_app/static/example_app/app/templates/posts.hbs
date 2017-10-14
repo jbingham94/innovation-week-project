@@ -1,7 +1,26 @@
 <ul>
-    {{#each model as |post|}}
-        <p>{{post.title}}</p>
-        <p>{{post.body}}</p>
+    <h1>Posts</h1>
+    {{#each model.posts as |post|}}
+        <p>Post ID: {{post.id}}</p>
+        <p>Author: {{post.authorUsername}}</p>
+        <p>Date: {{post.date}}</p>
+        <p>Title: {{post.title}}</p>
+        <p>Body: {{post.body}}</p>
+        <p>Score: {{post.score}}</p>
+    {{/each}}
+    <h1>User Profiles</h1>
+    {{#each model.userProfiles as |profile|}}
+        <p>User ID: {{profile.user}}</p>
+        <p>Upvoted Posts: {{profile.upvoted_posts}}</p>
+    {{/each}}
+    <h1>Users</h1>
+    {{#each model.users as |user|}}
+        <p>User ID: {{user.id}}</p>
+        <p>Username: {{user.username}}</p>
+    {{/each}}
+    <h1>Categories</h1>
+    {{#each model.categories as |category|}}
+        <p>Name: {{category.name}}</p>
     {{/each}}
 </ul>
 

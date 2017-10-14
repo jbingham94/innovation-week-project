@@ -8,8 +8,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.response import Response
 
-from example_app.models import Secret, Post
-from example_app.serializers import SecretSerializer, UserSerializer, PostSerializer
+from example_app.models import Secret, Post, UserProfile, Category, Comment
+from example_app.serializers import SecretSerializer, UserSerializer, PostSerializer, UserProfileSerializer, CategorySerializer, CommentSerializer
 
 
 def index_view(request):
@@ -44,14 +44,43 @@ class SecretDetailAPIView(RetrieveUpdateDestroyAPIView):
         return Secret.objects.filter(owner=self.request.user)
 
 
+class UserListAPIView(ListCreateAPIView):
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+        return User.objects.all()
+
+
 class UserDetailAPIView(RetrieveAPIView):
     serializer_class = UserSerializer
 
     def get_queryset(self):
         return User.objects.filter(pk=self.request.user.id)
 
+
 class PostListAPIView(ListCreateAPIView):
     serializer_class = PostSerializer
 
     def get_queryset(self):
         return Post.objects.all()
+
+
+class UserProfileListAPIView(ListCreateAPIView):
+    serializer_class = UserProfileSerializer
+
+    def get_queryset(self):
+        return UserProfile.objects.all()
+
+
+class CategoryListAPIView(ListCreateAPIView):
+    serializer_class = CategorySerializer
+
+    def get_queryset(self):
+        return Category.objects.all()
+
+
+class CommentListAPIView(ListCreateAPIView):
+    serializer_class = CommentSerializer
+
+    def get_queryset(self):
+        return Comment.objects.all()
