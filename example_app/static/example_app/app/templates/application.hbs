@@ -1,27 +1,27 @@
-<table style="width: 100%;text-align:center;">
-  <tr>
-    <td>
-      {{link-to "Home" "application"}}
-    </td>
-    {{#if session.isAuthenticated}}
-    <td>
-      {{link-to "Posts" "posts"}}
-    </td>
-    {{/if}}
-    <td>
-    {{#unless session.isAuthenticated}}
-      {{link-to "Login" "login"}}
-    {{else}}
-      <a href="" {{action 'invalidateSession'}}>Logout</a>
-    {{/unless}}
-    </td>
-  </tr>
-</table>
+<nav class="navbar is-black" role="navigation" aria-label="main navigation">
+    <div class="navbar-item">
+        {{link-to "Home" "application"}}
+    </div>
+    <div class="navbar-item">
+        {{link-to "Posts" "posts"}}
+    </div>
+
+    <div class="navbar-end">
+        {{#if session.isAuthenticated}}
+            <div class="navbar-item">
+                {{session.account.username}}
+            </div>
+            <div class="navbar-item">
+                <a href="" {{action 'invalidateSession'}}>Logout</a>
+            </div>
+        {{else}}
+            <div class="navbar-item">
+                {{link-to "Login" "login"}}
+            </div>
+        {{/if}}
+    </div>
+</nav>
 
 <h1>Innovation W33k</h1>
-{{#if session.isAuthenticated}}
-Welcome {{session.account.username}}
-{{/if}}
-<br>
 
 {{outlet}}
