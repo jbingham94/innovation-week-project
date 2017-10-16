@@ -12,7 +12,7 @@ class Secret(models.Model):
 
 
 class UserProfile(models.Model):
-    user = models.ForeignKey('auth.user')
+    user = models.OneToOneField('auth.user')
     upvoted_posts = models.ManyToManyField('Post', related_name='upvoted_posts', blank=True)
     downvoted_posts = models.ManyToManyField('Post', related_name='downvoted_posts', blank=True)
 
