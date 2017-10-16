@@ -1,27 +1,33 @@
-<ul>
-    <h1>Posts</h1>
-    {{#each model.posts as |post|}}
-        <p>Post ID: {{post.id}}</p>
-        <p>Author: {{post.authorUsername}}</p>
-        <p>Date: {{post.date}}</p>
-        <p>Title: {{post.title}}</p>
-        <p>Body: {{post.body}}</p>
-        <p>Score: {{post.score}}</p>
-    {{/each}}
-    <h1>User Profiles</h1>
-    {{#each model.userProfiles as |profile|}}
-        <p>User ID: {{profile.user}}</p>
-        <p>Upvoted Posts: {{profile.upvoted_posts}}</p>
-    {{/each}}
-    <h1>Users</h1>
-    {{#each model.users as |user|}}
-        <p>User ID: {{user.id}}</p>
-        <p>Username: {{user.username}}</p>
-    {{/each}}
-    <h1>Categories</h1>
-    {{#each model.categories as |category|}}
-        <p>Name: {{category.name}}</p>
-    {{/each}}
-</ul>
+<div class="columns is-mobile is-centered">
+    <div class="column is-half is-narrow">
+        <div class="dropdown is-active">
+            <div class="dropdown-trigger">
+                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                    <span>Category select</span>
+                    <span class="icon is-small">
+                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                      </span>
+                </button>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                <div class="dropdown-content">
+                    {{#each model.categories as |category|}}
+                        <a href="#" class="dropdown-item">
+                            {{category.name}}
+                        </a>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+        <ul>
+            <h1 class="title">Posts</h1>
+            {{#each model.posts as |post|}}
+                {{post-item post=post}}
+                <br>
+            {{/each}}
+        </ul>
+    </div>
+</div>
+
 
 {{outlet}}
