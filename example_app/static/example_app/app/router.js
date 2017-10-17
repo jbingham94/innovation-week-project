@@ -10,6 +10,7 @@ Router.map(function() {
   this.route('login');
   this.route('secret');
   this.route('posts');
+  this.route('create-post');
 });
 
 export default Router;

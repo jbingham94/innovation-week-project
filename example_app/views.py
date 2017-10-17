@@ -72,6 +72,13 @@ class UserProfileListAPIView(ListCreateAPIView):
         return UserProfile.objects.all()
 
 
+class UserProfileDetailAPIView(RetrieveAPIView):
+    serializer_class = UserProfileSerializer
+
+    def get_queryset(self):
+        return UserProfile.objects.filter(user=self.request.user)
+
+
 class CategoryListAPIView(ListCreateAPIView):
     serializer_class = CategorySerializer
 

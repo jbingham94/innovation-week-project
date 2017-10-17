@@ -8,37 +8,39 @@
         </div>
     </div>
     <footer class="card-footer">
-        <div class="card-footer-item"><i class="fa fa-chevron-up"/></div>
+        <div class="card-footer-item"><i class="fa fa-chevron-up fa-lg"/></div>
         <div class="card-footer-item">{{post.score}}</div>
-        <div class="card-footer-item"><i class="fa fa-chevron-down"/></div>
+        <div class="card-footer-item"><i class="fa fa-chevron-down fa-lg"/></div>
     </footer>
     <footer class="card-footer">
-        <a href="#" class="card-footer-item">Hide Comments&nbsp;<i class="fa fa-chevron-up"/></a>
+        <a class="card-footer-item" {{action 'toggleComments'}}>{{if showComments 'Hide' 'Show'}} Comments&nbsp;<i class="fa fa-chevron-{{if showComments 'up' 'down'}}"/></a>
     </footer>
-    <div class="card-content">
-        <div class="content">
-            <div class="field is-grouped">
-                <p class="control is-expanded">
-                    <textarea class="textarea" placeholder="Your comment here..."></textarea>
-                </p>
-                <p class="control">
-                    <a class="button is-info">
-                        Submit
-                    </a>
-                </p>
+    {{#if showComments}}
+        <div class="card-content">
+            <div class="content">
+                <div class="field is-grouped">
+                    <p class="control is-expanded">
+                        {{textarea class="textarea" placeholder="Your comment here..." value=commentText}}
+                    </p>
+                    <p class="control">
+                        <a class="button is-info" {{action 'createComment'}} disabled={{submitDisabled}}>
+                            Submit
+                        </a>
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="card-content">
-        <div class="content">
-            <div class="comment">
-                <span class="subtitle is-6 has-text-weight-bold">user2</span><span> - {{post.date}}</span>
-                <p>blahblabhalbhalbha</p>
+        <div class="card-content">
+            <div class="content">
+                {{#each comments as |comment|}}
+                    <div class="comment">
+                        <span class="subtitle is-6 has-text-weight-bold">{{comment.authorUsername}}</span><span> - {{comment.date}}</span>
+                        <p>{{comment.text}}</p>
+                    </div>
+                    <br>
+                {{/each}}
             </div>
-            <br>
-            <span class="subtitle is-6 has-text-weight-bold">user2</span><span> - {{post.date}}</span>
-            <p>blahblabhalbhalbha</p>
         </div>
-    </div>
+    {{/if}}
 </div>
 {{yield}}
