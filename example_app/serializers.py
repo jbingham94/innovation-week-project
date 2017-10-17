@@ -38,6 +38,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
+    author_username = serializers.ReadOnlyField()
 
     class Meta:
         model = Comment

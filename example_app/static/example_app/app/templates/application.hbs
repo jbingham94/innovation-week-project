@@ -3,7 +3,10 @@
         {{link-to "Home" "application"}}
     </div>
     <div class="navbar-item">
-        {{link-to "Posts" "posts"}}
+        {{link-to "Ideas" "posts"}}
+    </div>
+    <div class="navbar-item">
+        {{link-to "New Idea" "create-post"}}
     </div>
 
     <div class="navbar-end">
@@ -21,7 +24,9 @@
         {{/if}}
     </div>
 </nav>
-
-<h1>Innovation W33k</h1>
-
-{{outlet}}
+<div class="columns is-mobile is-centered">
+    <div class="column is-half is-narrow">
+        <br>
+        {{outlet}}
+    </div>
+</div>

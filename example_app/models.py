@@ -48,6 +48,10 @@ class Comment(models.Model):
     text = models.TextField()
     post = models.ForeignKey(Post)
 
+    @property
+    def author_username(self):
+        return self.author.user.username
+
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
