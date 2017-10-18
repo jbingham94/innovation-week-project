@@ -1,0 +1,23 @@
+<div class="comment {{if indent 'indented' ''}} {{colorClass}}">
+    <span class="subtitle is-6 has-text-weight-bold">{{comment.authorUsername}}</span><span> • {{format-date comment.date}}</span>
+    <p>{{comment.text}}</p>
+    <a {{action 'showReplyField'}}>Reply</a>
+    {{#if showReplyField}}
+        <div class="field is-grouped">
+            <p class="control is-expanded">
+                {{textarea class="textarea" placeholder="Your reply here..." value=replyText}}
+            </p>
+            <p class="control">
+                <a class="button is-info" {{action 'createReply'}} disabled={{submitDisabled}}>
+                    Submit
+                </a>
+            </p>
+        </div>
+    {{/if}}
+    {{#if children}}
+        {{#each children as |child|}}
+            {{comment-item comment=child indent=true allComments=allComments post=post userProfile=userProfile colorClass=childColor}}
+        {{/each}}
+    {{/if}}
+</div>
+{{yield}}

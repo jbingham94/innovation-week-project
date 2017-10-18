@@ -5,5 +5,7 @@ export default DS.Model.extend({
     authorUsername: DS.attr('string'),
     date: DS.attr('date'),
     text: DS.attr('string'),
-    post: DS.belongsTo('post')
+    post: DS.belongsTo('post'),
+    parent: DS.belongsTo('comment', { inverse: 'children' }),
+    children: DS.hasMany('comment', { inverse: 'parent' })
 });

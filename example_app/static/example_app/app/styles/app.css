@@ -1,2 +1,20 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.0/css/bulma.css");
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+
+.comment {
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+.indented {
+    margin-left: 40px;
+}
+
+.white-comment {
+    background-color: white;
+}
+
+.lightgray-comment {
+    background-color: #f5f5f5;
+}
