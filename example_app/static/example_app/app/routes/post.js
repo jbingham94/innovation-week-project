@@ -1,15 +1,13 @@
 import Ember from 'ember';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
-export default Ember.Route.extend(AuthenticatedRouteMixin, {
+export default Ember.Route.extend({
     session: Ember.inject.service('session'),
 
     model() {
         return Ember.RSVP.hash({
-            posts: this.store.findAll('post'),
+            post: this.store.findRecord('post', arguments[0].post_id),
             userProfile: this.store.findRecord('user-profile', this.get('session.session.authenticated.user_id')),
             userProfiles: this.store.findAll('user-profile'),
-            categories: this.store.findAll('category'),
             comments: this.store.findAll('comment')
         });
     }

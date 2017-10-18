@@ -11,6 +11,9 @@ Router.map(function() {
   this.route('secret');
   this.route('posts');
   this.route('create-post');
+  this.route('post', { path: '/post/:post_id' });
+  this.route('my-posts');
+  this.route('edit-post');
 });
 
 export default Router;

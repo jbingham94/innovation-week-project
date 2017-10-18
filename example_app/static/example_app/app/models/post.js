@@ -4,6 +4,7 @@ export default DS.Model.extend({
     author: DS.belongsTo('user-profile'),
     authorUsername: DS.attr('string'),
     category: DS.belongsTo('category'),
+    categoryName: DS.attr('string'),
     date: DS.attr('date'),
     title: DS.attr('string'),
     body: DS.attr('string'),

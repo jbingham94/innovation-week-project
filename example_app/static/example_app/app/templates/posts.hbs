@@ -1,19 +1,39 @@
 <div>
     <a class="button is-primary" {{action "newPost"}}><i class="fa fa-pencil"/>&nbsp;New Idea</a>
-    <div class="dropdown is-active is-pulled-right">
+    {{input class='input' placeholder='Search...' value=searchText}}
+    <div class="dropdown {{if showCategoryDropdown 'is-active' ''}}" {{action 'toggleCategoryDropdown'}}>
         <div class="dropdown-trigger">
             <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-                <span>Select category...</span>
+                <span>{{if categoryFilter categoryFilter.name 'Select category...'}}</span>
                 <span class="icon is-small">
-                <i class="fa fa-angle-down" aria-hidden="true"></i>
-              </span>
+                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                  </span>
             </button>
         </div>
         <div class="dropdown-menu" id="dropdown-menu" role="menu">
             <div class="dropdown-content">
                 {{#each model.categories as |category|}}
-                    <a href="#" class="dropdown-item">
+                    <a href="#" class="dropdown-item" {{action 'setCategoryFilter' category}}>
                         {{category.name}}
+                    </a>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    <div class="dropdown {{if showMainFilterDropdown 'is-active' ''}}" {{action 'toggleMainFilterDropdown'}}>
+        <div class="dropdown-trigger">
+            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                <span>{{mainFilter}}</span>
+                <span class="icon is-small">
+                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                  </span>
+            </button>
+        </div>
+        <div class="dropdown-menu" id="dropdown-menu" role="menu">
+            <div class="dropdown-content">
+                {{#each mainFilterTypes as |filterType|}}
+                    <a href="#" class="dropdown-item" {{action 'setMainFilter' filterType}}>
+                        {{filterType}}
                     </a>
                 {{/each}}
             </div>
@@ -21,8 +41,8 @@
     </div>
 </div>
 <br>
-{{#each posts as |post|}}
-    {{post-item post=post.post comments=post.comments userProfile=model.userProfile}}
+{{#each displayedPosts as |post|}}
+    {{post-item post=post comments=model.comments isDetail=false userProfile=model.userProfile userProfiles=model.userProfiles}}
     <br>
 {{/each}}
 

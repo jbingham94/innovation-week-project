@@ -20,6 +20,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     author_username = serializers.ReadOnlyField()
+    category_name = serializers.ReadOnlyField()
 
     class Meta:
         model = Post

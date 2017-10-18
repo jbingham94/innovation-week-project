@@ -8,9 +8,6 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
         return Ember.RSVP.hash({
             posts: this.store.findAll('post'),
             userProfile: this.store.findRecord('user-profile', this.get('session.session.authenticated.user_id')),
-            userProfiles: this.store.findAll('user-profile'),
-            categories: this.store.findAll('category'),
-            comments: this.store.findAll('comment')
         });
     }
 });

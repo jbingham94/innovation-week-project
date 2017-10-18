@@ -13,8 +13,6 @@ class Secret(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField('auth.user')
-    upvoted_posts = models.ManyToManyField('Post', related_name='upvoted_posts', blank=True)
-    downvoted_posts = models.ManyToManyField('Post', related_name='downvoted_posts', blank=True)
 
     def __unicode__(self):
         return self.user.username
@@ -40,6 +38,10 @@ class Post(models.Model):
     @property
     def author_username(self):
         return self.author.user.username
+
+    @property
+    def category_name(self):
+        return self.category.name
 
 
 class Comment(models.Model):

@@ -1,0 +1,26 @@
+<table class="table is-fullwidth">
+    <tbody>
+    {{#each displayedPosts as |post|}}
+        <tr>
+            <td>{{post.title}}</td>
+            <td width="10%">
+                <a class="button is-primary">
+                <span class="icon is-small">
+                  <i class="fa fa-pencil"></i>
+                </span>
+                    <span>Edit</span>
+                </a>
+            </td>
+            <td width="10%">
+                <a class="button is-danger" {{action 'deletePost' post}}>
+                <span class="icon is-small">
+                  <i class="fa fa-trash"></i>
+                </span>
+                    <span>Delete</span>
+                </a>
+            </td>
+        </tr>
+    {{/each}}
+    </tbody>
+</table>
+{{outlet}}
