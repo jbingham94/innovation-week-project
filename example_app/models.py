@@ -43,16 +43,23 @@ class Post(models.Model):
     def category_name(self):
         return self.category.name
 
+    def __unicode__(self):
+        return self.title
+
 
 class Comment(models.Model):
     author = models.ForeignKey(UserProfile)
     date = models.DateTimeField()
     text = models.TextField()
     post = models.ForeignKey(Post)
+    parent = models.ForeignKey('Comment', blank=True, null=True)
 
     @property
     def author_username(self):
         return self.author.user.username
+
+    def __unicode__(self):
+        return self.text
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)

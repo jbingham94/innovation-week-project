@@ -48,7 +48,7 @@ export default Ember.Component.extend({
             }
         },
         cancel() {
-            this.get('router').transitionTo('posts');
+            this.get('router').transitionTo(this.get('isEdit') ? 'my-posts' : 'posts');
         }
     }
 });

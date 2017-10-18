@@ -7,7 +7,7 @@ export default Ember.Controller.extend({
         let posts = this.get('sortedPosts');
 
         if (this.get('categoryFilter')) {
-            posts = posts.filter(post => post.belongsTo('category').id() === this.get('categoryFilter.id'))
+            posts = posts.filter(post => post.belongsTo('category').id() === this.get('categoryFilter.id'));
         }
 
         if (this.get('searchText')) {
@@ -43,11 +43,11 @@ export default Ember.Controller.extend({
         },
 
         setCategoryFilter(category) {
-            this.set('categoryFilter', category)
+            this.set('categoryFilter', category);
         },
 
         setMainFilter(filter) {
-            this.set('mainFilter', filter)
+            this.set('mainFilter', filter);
         }
     }
 });

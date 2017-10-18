@@ -7,8 +7,9 @@ export default Ember.Controller.extend({
 
     actions: {
         deletePost(post) {
-            post.destroyRecord();
-            this.set('model.posts', this.get('model.posts').removeObject(post));
+            post.destroyRecord().then(() => {
+                this.get('model.posts').removeObject(post);
+            });
         },
 
         editPost(post) {
@@ -17,7 +18,7 @@ export default Ember.Controller.extend({
                 userProfile: this.get('model.userProfile'),
                 post: post,
                 categories: this.get('model.categories')
-            })
+            });
         },
 
         goToDetail(post) {
@@ -27,7 +28,7 @@ export default Ember.Controller.extend({
                 userProfile: this.get('model.userProfile'),
                 userProfiles: this.get('model.userProfiles'),
                 comments: this.get('model.comments')
-            })
+            });
         }
     }
 });

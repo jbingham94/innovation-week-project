@@ -1,10 +1,9 @@
 import Ember from 'ember';
-import DS from 'ember-data';
 
 function voteHelper(direction, currentScore, magnitude, isUndo) {
     return isUndo
-        ? direction === 'up' ? currentScore - magnitude : currentScore + magnitude
-        : direction === 'up' ? currentScore + magnitude : currentScore - magnitude
+        ? (direction === 'up' ? currentScore - magnitude : currentScore + magnitude)
+        : (direction === 'up' ? currentScore + magnitude : currentScore - magnitude);
 }
 
 export default Ember.Component.extend({
@@ -21,8 +20,8 @@ export default Ember.Component.extend({
         }, {});
     }),
 
-    displayedComments: Ember.computed('isDetail', function() {
-        return this.get('comments').filter(comment => comment.belongsTo('post').id() === this.get('post.id'));
+    displayedComments: Ember.computed(function() {
+        return this.get('comments').filter(comment => comment.belongsTo('post').id() === this.get('post.id') && comment.belongsTo('parent').id() === null);
     }),
 
     actions: {
@@ -38,14 +37,17 @@ export default Ember.Component.extend({
 
             this.set('post.score', this.get(`voteTracker.${direction}voted`)
                 ? voteHelper(direction, currentScore, 1, true)  // Undoing vote
-                : this.get(`voteTracker.${otherDirection}voted`)
+                : (this.get(`voteTracker.${otherDirection}voted`)
                     ? voteHelper(direction, currentScore, 2, false)  // Switching vote type
-                    : voteHelper(direction, currentScore, 1, false));  // Fresh vote
+                    : voteHelper(direction, currentScore, 1, false)));  // Fresh vote
 
-            this.get(`voteTracker.${direction}voted`)
-                ? directionVoters.splice(directionVoters.indexOf(this.get('userProfile.id')), 1)  // Undoing vote
-                : directionVoters.push(this.get('userProfile.id'));  // Regular vote
-            this.get(`voteTracker.${otherDirection}voted`) && otherDirectionVoters.splice(otherDirectionVoters.indexOf(this.get('userProfile.id')), 1); // Remove user from other voters if switching vote type
+            if (this.get(`voteTracker.${direction}voted`)) {
+                directionVoters.splice(directionVoters.indexOf(this.get('userProfile.id')), 1);  // Undoing vote
+            } else { directionVoters.push(this.get('userProfile.id')); } // Regular vote
+
+            if (this.get(`voteTracker.${otherDirection}voted`)) {
+                otherDirectionVoters.splice(otherDirectionVoters.indexOf(this.get('userProfile.id')), 1); // Remove user from other voters if switching vote type
+            }
 
             this.set(`post.${direction}voters`, this.get('userProfiles').filter(profile => directionVoters.contains(profile.get('id'))));
             this.set(`post.${otherDirection}voters`, this.get('userProfiles').filter(profile => otherDirectionVoters.contains(profile.get('id'))));
@@ -58,10 +60,10 @@ export default Ember.Component.extend({
                 post: this.get('post'),
                 text: this.get('commentText'),
                 date: new Date()
-            })
+            });
             comment.save().then(() => {
                 this.set('commentText', '');
-                this.get('comments').pushObject(comment);
+                this.get('displayedComments').pushObject(comment);
             });
         },
 
@@ -72,7 +74,7 @@ export default Ember.Component.extend({
                 userProfile: this.get('userProfile'),
                 userProfiles: this.get('userProfiles'),
                 comments: this.get('comments')
-            })
+            });
         }
     }
 });

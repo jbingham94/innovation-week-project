@@ -2,7 +2,7 @@
     <div class="card-content">
         <div class="content">
             <p class="title is-4" {{action 'goToDetail' post.id}}>{{post.title}}</p>
-            <p class="subtitle is-6">{{post.authorUsername}} - {{post.date}} - {{post.categoryName}}</p>
+            <p class="subtitle is-6">{{post.authorUsername}} • {{post.categoryName}} • {{format-date post.date}}</p>
             {{post.body}}
             <br><br>
         </div>
@@ -17,7 +17,7 @@
     </footer>
     {{#if showComments}}
         <div class="card-content">
-            <div class="content">
+            <div>
                 <div class="field is-grouped">
                     <p class="control is-expanded">
                         {{textarea class="textarea" placeholder="Your comment here..." value=commentText}}
@@ -29,15 +29,9 @@
                     </p>
                 </div>
             </div>
-        </div>
-        <div class="card-content">
             <div class="content">
                 {{#each displayedComments as |comment|}}
-                    <div class="comment">
-                        <span class="subtitle is-6 has-text-weight-bold">{{comment.authorUsername}}</span><span> - {{comment.date}}</span>
-                        <p>{{comment.text}}</p>
-                    </div>
-                    <br>
+                    {{comment-item comment=comment allComments=comments post=post colorClass='white-comment' userProfile=userProfile}}
                 {{/each}}
             </div>
         </div>
