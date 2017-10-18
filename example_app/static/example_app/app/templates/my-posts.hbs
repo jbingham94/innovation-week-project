@@ -2,9 +2,9 @@
     <tbody>
     {{#each displayedPosts as |post|}}
         <tr>
-            <td>{{post.title}}</td>
+            <td><a {{action 'goToDetail' post}}>{{post.title}}</a></td>
             <td width="10%">
-                <a class="button is-primary">
+                <a class="button is-primary" {{action 'editPost' post}}>
                 <span class="icon is-small">
                   <i class="fa fa-pencil"></i>
                 </span>

@@ -13,7 +13,7 @@ Router.map(function() {
   this.route('create-post');
   this.route('post', { path: '/post/:post_id' });
   this.route('my-posts');
-  this.route('edit-post');
+  this.route('edit-post', { path: '/edit-post/:post_id' });
 });
 
 export default Router;
