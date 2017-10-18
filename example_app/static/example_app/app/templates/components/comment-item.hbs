@@ -1,4 +1,4 @@
-<div class="comment {{if indent 'indented' ''}} {{colorClass}}">
+<div class="comment rounded {{if indent 'indented' ''}} {{colorClass}}">
     <span class="subtitle is-6 has-text-weight-bold">{{comment.authorUsername}}</span><span> • {{format-date comment.date}}</span>
     <p>{{comment.text}}</p>
     <a {{action 'showReplyField'}}>Reply</a>

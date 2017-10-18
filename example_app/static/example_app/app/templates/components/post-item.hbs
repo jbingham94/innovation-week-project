@@ -1,10 +1,10 @@
-<div class="card">
+<div class="card rounded">
     <div class="card-content">
         <div class="content">
             <p class="title is-4" {{action 'goToDetail' post.id}}>{{post.title}}</p>
             <p class="subtitle is-6">{{post.authorUsername}} • {{post.categoryName}} • {{format-date post.date}}</p>
             {{post.body}}
-            <br><br>
+            <br>
         </div>
     </div>
     <footer class="card-footer">

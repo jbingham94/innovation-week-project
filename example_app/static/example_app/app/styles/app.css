@@ -1,10 +1,17 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.0/css/bulma.css");
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 
+html {
+    background: url("https://static.pexels.com/photos/139306/pexels-photo-139306.jpeg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 .comment {
     padding: 20px;
     margin-top: 20px;
-    border-radius: 10px;
 }
 
 .indented {
@@ -17,4 +24,12 @@
 
 .lightgray-comment {
     background-color: #f5f5f5;
+}
+
+.field.is-grouped {
+    justify-content: center;
+}
+
+.rounded {
+    border-radius: 10px;
 }
