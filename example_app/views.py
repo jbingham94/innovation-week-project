@@ -65,6 +65,13 @@ class PostListAPIView(ListCreateAPIView):
         return Post.objects.all()
 
 
+class PostDetailAPIView(RetrieveUpdateDestroyAPIView):
+    serializer_class = PostSerializer
+
+    def get_queryset(self):
+        return Post.objects.all()
+
+
 class UserProfileListAPIView(ListCreateAPIView):
     serializer_class = UserProfileSerializer
 

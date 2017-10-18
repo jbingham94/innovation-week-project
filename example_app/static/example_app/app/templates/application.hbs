@@ -15,6 +15,9 @@
                 {{session.account.username}}
             </div>
             <div class="navbar-item">
+                {{link-to "My Posts" "my-posts"}}
+            </div>
+            <div class="navbar-item">
                 <a href="" {{action 'invalidateSession'}}>Logout</a>
             </div>
         {{else}}

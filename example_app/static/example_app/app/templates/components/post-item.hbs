@@ -1,16 +1,16 @@
 <div class="card">
     <div class="card-content">
         <div class="content">
-            <p class="title is-4">{{post.title}}</p>
-            <p class="subtitle is-6">{{post.authorUsername}} - {{post.date}}</p>
+            <p class="title is-4" {{action 'goToDetail' post.id}}>{{post.title}}</p>
+            <p class="subtitle is-6">{{post.authorUsername}} - {{post.date}} - {{post.categoryName}}</p>
             {{post.body}}
             <br><br>
         </div>
     </div>
     <footer class="card-footer">
-        <div class="card-footer-item"><i class="fa fa-chevron-up fa-lg"/></div>
+        <div class="card-footer-item" {{action 'vote' 'up'}}><i class="fa fa-chevron-up fa-lg {{if voteTracker.upvoted 'has-text-success' ''}}"/></div>
         <div class="card-footer-item">{{post.score}}</div>
-        <div class="card-footer-item"><i class="fa fa-chevron-down fa-lg"/></div>
+        <div class="card-footer-item" {{action 'vote' 'down'}}><i class="fa fa-chevron-down fa-lg {{if voteTracker.downvoted 'has-text-danger' ''}}"/></div>
     </footer>
     <footer class="card-footer">
         <a class="card-footer-item" {{action 'toggleComments'}}>{{if showComments 'Hide' 'Show'}} Comments&nbsp;<i class="fa fa-chevron-{{if showComments 'up' 'down'}}"/></a>
@@ -32,7 +32,7 @@
         </div>
         <div class="card-content">
             <div class="content">
-                {{#each comments as |comment|}}
+                {{#each displayedComments as |comment|}}
                     <div class="comment">
                         <span class="subtitle is-6 has-text-weight-bold">{{comment.authorUsername}}</span><span> - {{comment.date}}</span>
                         <p>{{comment.text}}</p>

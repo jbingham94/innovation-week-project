@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-export default Ember.Controller.extend({
+export default Ember.Component.extend({
     store: Ember.inject.service(),
 
     submitDisabled: Ember.computed('title', 'category', 'body', function() {
@@ -18,7 +18,7 @@ export default Ember.Controller.extend({
         },
         submitPost() {
             this.get('store').createRecord('post', {
-                author: this.get('model.userProfile'),
+                author: this.get('userProfile'),
                 title: this.get('title'),
                 category: this.get('category'),
                 body: this.get('body'),
@@ -26,11 +26,11 @@ export default Ember.Controller.extend({
                 score: 0
             }).save().then(() => {
                 this.setProperties(['title', 'category', 'body'].reduce((map, property) => { map[property] = undefined; return map; }, {}));
-                this.transitionToRoute('posts')
+                this.get('router').transitionTo('posts');
             });
         },
         cancel() {
-            this.transitionToRoute('posts');
+            this.get('router').transitionTo('posts');
         }
     }
 });
