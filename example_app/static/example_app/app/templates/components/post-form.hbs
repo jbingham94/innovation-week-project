@@ -33,7 +33,7 @@
 </div>
 <div class="field is-grouped">
     <div class="control">
-        <button class="button is-link" {{action 'submitPost'}} disabled={{submitDisabled}}>Submit</button>
+        <button class="button is-link" {{action 'submitPost'}} disabled={{submitDisabled}}>{{if isEdit 'Save' 'Submit'}}</button>
     </div>
     <div class="control">
         <a class="button is-text" {{action 'cancel'}}>Cancel</a>
