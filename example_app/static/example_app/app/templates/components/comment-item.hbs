@@ -1,9 +1,9 @@
-<div class="comment {{if indent 'indented' ''}} {{colorClass}}">
+<div class="comment rounded {{if indent 'indented' ''}} {{colorClass}}">
     <span class="subtitle is-6 has-text-weight-bold">{{comment.authorUsername}}</span><span> • {{format-date comment.date}}</span>
     <p>{{comment.text}}</p>
-    <a {{action 'showReplyField'}}>Reply</a>
+    <a {{action 'toggleReplyField'}}>{{if showReplyField 'Cancel' 'Reply'}}</a>{{#if userIsAuthor}} • <a {{action 'sendDeleteComment'}}>Delete</a>{{/if}}
     {{#if showReplyField}}
-        <div class="field is-grouped">
+        <div class="field is-grouped reply-form">
             <p class="control is-expanded">
                 {{textarea class="textarea" placeholder="Your reply here..." value=replyText}}
             </p>
@@ -16,7 +16,7 @@
     {{/if}}
     {{#if children}}
         {{#each children as |child|}}
-            {{comment-item comment=child indent=true allComments=allComments post=post userProfile=userProfile colorClass=childColor}}
+            {{comment-item comment=child indent=true allComments=allComments post=post userProfile=userProfile colorClass=childColor action='deleteComment'}}
         {{/each}}
     {{/if}}
 </div>

@@ -1,34 +1,38 @@
 <nav class="navbar is-black" role="navigation" aria-label="main navigation">
     <div class="navbar-item">
-        {{link-to "Home" "application"}}
+        {{link-to "Home" "application" class="nav-link"}}
     </div>
     <div class="navbar-item">
-        {{link-to "Ideas" "posts"}}
+        {{link-to "Ideas" "posts" class="nav-link"}}
     </div>
     <div class="navbar-item">
-        {{link-to "New Idea" "create-post"}}
+        {{link-to "New Idea" "create-post" class="nav-link"}}
     </div>
 
     <div class="navbar-end">
         {{#if session.isAuthenticated}}
-            <div class="navbar-item">
-                {{session.account.username}}
-            </div>
-            <div class="navbar-item">
-                {{link-to "My Posts" "my-posts"}}
-            </div>
-            <div class="navbar-item">
-                <a href="" {{action 'invalidateSession'}}>Logout</a>
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link  is-active">
+                    <i class="fa fa-user user-icon"/>{{session.account.username}}
+                </a>
+                <div class="navbar-dropdown is-boxed">
+                    <div class="navbar-item">
+                        {{link-to "My Ideas" "my-posts" class="dropdown-link"}}
+                    </div>
+                    <div class="navbar-item">
+                        <a href="" class="dropdown-link" {{action 'invalidateSession'}}>Logout</a>
+                    </div>
+                </div>
             </div>
         {{else}}
             <div class="navbar-item">
-                {{link-to "Login" "login"}}
+                {{link-to "Login" "login" class="nav-link"}}
             </div>
         {{/if}}
     </div>
 </nav>
 <div class="columns is-mobile is-centered">
-    <div class="column is-half is-narrow">
+    <div class="column is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-half-widescreen is-half-fullhd">
         <br>
         {{outlet}}
     </div>

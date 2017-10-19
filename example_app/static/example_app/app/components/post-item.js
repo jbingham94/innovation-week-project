@@ -67,6 +67,12 @@ export default Ember.Component.extend({
             });
         },
 
+        deleteComment(comment) {
+            comment.destroyRecord().then(() => {
+                this.get('displayedComments').removeObject(comment);
+            });
+        },
+
         goToDetail(id) {
             this.get('router').transitionTo('post', {
                 post_id: id,

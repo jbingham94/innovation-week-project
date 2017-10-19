@@ -1,2 +1,8 @@
-{{post-form post=model.post categories=model.categories userProfile=model.userProfile isEdit=true}}
+<div class="wrapper">
+    {{#if canEdit}}
+        {{post-form post=model.post categories=model.categories userProfile=model.userProfile isEdit=true}}
+    {{else}}
+        <p class="title is-2 has-text-centered">You cannot edit this idea.</p>
+    {{/if}}
+</div>
 {{outlet}}

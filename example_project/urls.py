@@ -28,7 +28,8 @@ from example_app.views import (
     UserProfileListAPIView,
     UserProfileDetailAPIView,
     CategoryListAPIView,
-    CommentListAPIView
+    CommentListAPIView,
+    CommentDetailAPIView
 )
 
 urlpatterns = [
@@ -44,5 +45,6 @@ urlpatterns = [
     url(r'^api/user-profiles/(?P<pk>\d+)/$', UserProfileDetailAPIView.as_view(), name="user_profile_detail_api_view"),
     url(r'^api/categories/$', CategoryListAPIView.as_view(), name="category_list_api_view"),
     url(r'^api/comments/$', CommentListAPIView.as_view(), name="comment_list_api_view"),
+    url(r'^api/comments/(?P<pk>\d+)/$', CommentDetailAPIView.as_view(), name="comment_detail_api_view"),
     url(r'^', index_view, name="index_view"),
 ]

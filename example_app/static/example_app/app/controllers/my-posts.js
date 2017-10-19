@@ -5,6 +5,8 @@ export default Ember.Controller.extend({
         return this.get('model.posts').filter(post => post.belongsTo('author').id() === this.get('model.userProfile.id'));
     }),
 
+    hasPosts: Ember.computed.notEmpty('displayedPosts'),
+
     actions: {
         deletePost(post) {
             post.destroyRecord().then(() => {
@@ -29,6 +31,14 @@ export default Ember.Controller.extend({
                 userProfiles: this.get('model.userProfiles'),
                 comments: this.get('model.comments')
             });
-        }
+        },
+
+        newPost() {
+            this.transitionToRoute('create-post');
+        },
+
+        goToPosts() {
+            this.transitionToRoute('posts');
+        },
     }
 });

@@ -1,10 +1,17 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.0/css/bulma.css");
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 
+html {
+    background: url("https://fthmb.tqn.com/aSZzhcpcCHfN0zQHQ0g5vfwGedg=/3872x2592/filters:fill(auto,1)/blueprint-b11-172211936-58aa5a753df78c345bf2b6f9.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 .comment {
     padding: 20px;
-    margin-top: 20px;
-    border-radius: 10px;
+    margin-top: 10px;
 }
 
 .indented {
@@ -17,4 +24,46 @@
 
 .lightgray-comment {
     background-color: #f5f5f5;
+}
+
+.field.is-grouped {
+    justify-content: center;
+}
+
+.rounded {
+    border-radius: 10px;
+}
+
+.wrapper {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.nav-link {
+    color: white;
+}
+
+.dropdown-link {
+    color: black;
+}
+
+.user-icon {
+    margin-right: 10px;
+}
+
+.reply-form {
+    margin-top: 10px;
+}
+
+.post-title {
+    cursor: pointer;
+}
+
+.post-title:hover {
+    color: #3273dc;
+}
+
+.my-posts-table {
+    margin-bottom: 0px;
 }
