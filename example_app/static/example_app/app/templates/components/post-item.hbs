@@ -1,7 +1,7 @@
 <div class="card rounded">
     <div class="card-content">
         <div class="content">
-            <p class="title is-4" {{action 'goToDetail' post.id}}>{{post.title}}</p>
+            <p class="title is-4 post-title" {{action 'goToDetail' post.id}}>{{post.title}}</p>
             <p class="subtitle is-6">{{post.authorUsername}} • {{post.categoryName}} • {{format-date post.date}}</p>
             {{post.body}}
             <br>
@@ -31,7 +31,7 @@
             </div>
             <div class="content">
                 {{#each displayedComments as |comment|}}
-                    {{comment-item comment=comment allComments=comments post=post colorClass='white-comment' userProfile=userProfile}}
+                    {{comment-item comment=comment allComments=comments post=post colorClass='white-comment' userProfile=userProfile action='deleteComment'}}
                 {{/each}}
             </div>
         </div>

@@ -1,7 +1,7 @@
-<div>
+<div class="wrapper">
     <div class="field is-grouped filter-posts">
         <p class="control">
-            <a class="button is-primary" {{action "newPost"}}><i class="fa fa-pencil"/>&nbsp;New Idea</a>
+            <a class="button is-success" {{action "newPost"}}>New Idea</a>
         </p>
         <p class="control">
             {{input class='input' placeholder='Search...' value=searchText}}
@@ -48,12 +48,21 @@
                 </div>
             </div>
         </p>
+        <p class="control">
+            <a class="button is-link" {{action "clearFilters"}}>Clear Filters</a>
+        </p>
     </div>
 </div>
 <br>
-{{#each displayedPosts as |post|}}
-    {{post-item post=post comments=model.comments isDetail=false userProfile=model.userProfile userProfiles=model.userProfiles}}
-    <br>
-{{/each}}
+{{#if displayedPosts}}
+    {{#each displayedPosts as |post|}}
+        {{post-item post=post comments=model.comments isDetail=false userProfile=model.userProfile userProfiles=model.userProfiles}}
+        <br>
+    {{/each}}
+{{else}}
+    <div class="wrapper">
+        <p class="title is-3 has-text-centered">No ideas match these filters.</p>
+    </div>
+{{/if}}
 
 {{outlet}}

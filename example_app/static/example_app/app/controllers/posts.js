@@ -48,6 +48,14 @@ export default Ember.Controller.extend({
 
         setMainFilter(filter) {
             this.set('mainFilter', filter);
+        },
+
+        clearFilters() {
+            this.setProperties({
+                categoryFilter: null,
+                searchText: '',
+                mainFilter: 'Recent'
+            });
         }
     }
 });

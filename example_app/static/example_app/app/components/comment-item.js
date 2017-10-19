@@ -9,6 +9,10 @@ export default Ember.Component.extend({
 
     showReplyField: false,
 
+    userIsAuthor: Ember.computed(function() {
+        return this.get('comment').belongsTo('author').id() === this.get('userProfile.id');
+    }),
+
     isBaseComment: Ember.computed(function() { return this.get('indent') === 0; }),
 
     children: Ember.computed(function() {
@@ -20,8 +24,8 @@ export default Ember.Component.extend({
     }),
 
     actions: {
-        showReplyField() {
-            this.set('showReplyField', true);
+        toggleReplyField() {
+            this.set('showReplyField', !this.get('showReplyField'));
         },
 
         createReply() {
@@ -38,5 +42,15 @@ export default Ember.Component.extend({
                 this.get('children').pushObject(reply);
             });
         },
+
+        sendDeleteComment() {
+            this.sendAction('action', this.get('comment'));
+        },
+
+        deleteComment(comment) {
+            comment.destroyRecord().then(() => {
+                this.get('children').removeObject(comment);
+            });
+        }
     }
 });

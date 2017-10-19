@@ -98,3 +98,10 @@ class CommentListAPIView(ListCreateAPIView):
 
     def get_queryset(self):
         return Comment.objects.all()
+
+
+class CommentDetailAPIView(RetrieveUpdateDestroyAPIView):
+    serializer_class = CommentSerializer
+
+    def get_queryset(self):
+        return Comment.objects.all()

@@ -1,26 +1,41 @@
-<table class="table is-fullwidth">
-    <tbody>
-    {{#each displayedPosts as |post|}}
-        <tr>
-            <td><a {{action 'goToDetail' post}}>{{post.title}}</a></td>
-            <td width="10%">
-                <a class="button is-primary" {{action 'editPost' post}}>
-                <span class="icon is-small">
-                  <i class="fa fa-pencil"></i>
-                </span>
-                    <span>Edit</span>
-                </a>
-            </td>
-            <td width="10%">
-                <a class="button is-danger" {{action 'deletePost' post}}>
-                <span class="icon is-small">
-                  <i class="fa fa-trash"></i>
-                </span>
-                    <span>Delete</span>
-                </a>
-            </td>
-        </tr>
-    {{/each}}
-    </tbody>
-</table>
+<div class="wrapper">
+    {{#if hasPosts}}
+        <table class="table is-fullwidth my-posts-table">
+            <tbody>
+            {{#each displayedPosts as |post|}}
+                <tr>
+                    <td><a {{action 'goToDetail' post}}>{{post.title}}</a></td>
+                    <td width="10%">
+                        <a class="button is-primary" {{action 'editPost' post}}>
+                            <span class="icon is-small">
+                              <i class="fa fa-pencil"></i>
+                            </span>
+                            <span>Edit</span>
+                        </a>
+                    </td>
+                    <td width="10%">
+                        <a class="button is-danger" {{action 'deletePost' post}}>
+                            <span class="icon is-small">
+                              <i class="fa fa-trash"></i>
+                            </span>
+                            <span>Delete</span>
+                        </a>
+                    </td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    {{else}}
+        <p class="title is-3 has-text-centered">You haven't submitted any ideas yet!</p>
+        <div class="field is-grouped filter-posts">
+            <p class="control">
+                <a class="button is-success" {{action "newPost"}}>New Idea</a>
+            </p>
+            <p class="control">
+                <a class="button is-link" {{action "goToPosts"}}>See all ideas</a>
+            </p>
+        </div>
+
+    {{/if}}
+</div>
 {{outlet}}
