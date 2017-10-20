@@ -29,6 +29,10 @@ export default Ember.Controller.extend({
 
     showMainFilterDropdown: false,
 
+    filtersCleared: Ember.computed('categoryFilter', 'searchText', 'mainFilter', function() {
+        return !this.get('categoryFilter') && !this.get('searchText') && this.get('mainFilter') === 'Recent';
+    }),
+
     actions: {
         toggleCategoryDropdown() {
             this.set('showCategoryDropdown', !this.get('showCategoryDropdown'));
@@ -39,6 +43,7 @@ export default Ember.Controller.extend({
         },
 
         newPost() {
+            this.send('clearFilters');
             this.transitionToRoute('create-post');
         },
 

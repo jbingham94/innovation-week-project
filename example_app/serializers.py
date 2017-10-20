@@ -27,6 +27,7 @@ class PostSerializer(serializers.ModelSerializer):
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
+    user_username = serializers.ReadOnlyField()
 
     class Meta:
         model = UserProfile

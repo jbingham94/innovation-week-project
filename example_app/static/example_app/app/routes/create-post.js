@@ -7,6 +7,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     model() {
         return Ember.RSVP.hash({
             userProfile: this.store.findRecord('user-profile', this.get('session.session.authenticated.user_id')),
+            userProfiles: this.store.findAll('user-profile'),
             categories: this.store.findAll('category'),
         });
     }

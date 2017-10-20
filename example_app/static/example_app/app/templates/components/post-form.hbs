@@ -11,7 +11,7 @@
             <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
                 <span>{{if category category.name 'Select...'}}</span>
                 <span class="icon is-small">
-                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                    <i class="fa fa-angle-{{if showDropdown 'up' 'down'}}" aria-hidden="true"></i>
                   </span>
             </button>
         </div>
@@ -28,6 +28,41 @@
 </div>
 
 <div class="field">
+    <label class="label">Teammates</label>
+    <div class="field">
+        {{#if teammates}}
+            {{#each teammates as |teammate|}}
+                <div class="tag is-medium">
+                    {{teammate.userUsername}}
+                    <button class="delete is-small" {{action 'deleteTeammate' teammate}}></button>
+                </div>
+            {{/each}}
+        {{/if}}
+    </div>
+    <div class="dropdown {{if searchText 'is-active' ''}}">
+        <div class="dropdown-trigger">
+            <div class="control">
+                {{input class="input" type="text" placeholder="Add teammate..." value=searchText}}
+            </div>
+        </div>
+        <div class="dropdown-menu" id="dropdown-menu2" role="menu">
+            <div class="dropdown-content">
+                {{#if searchResults}}
+                    {{#each searchResults as |result|}}
+                        <a class="dropdown-item" {{action 'addTeammate' result}}>
+                            {{result.userUsername}}
+                        </a>
+                    {{/each}}
+                {{else}}
+                    <p class="dropdown-item">No results.</p>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="field">
     <label class="label">Description</label>
     {{textarea class="textarea" placeholder="Your description here..." value=body}}
 </div>
@@ -36,7 +71,7 @@
         <button class="button is-link" {{action 'submitPost'}} disabled={{submitDisabled}}>{{if isEdit 'Save' 'Submit'}}</button>
     </div>
     <div class="control">
-        <a class="button is-text" {{action 'cancel'}}>Cancel</a>
+        <a class="button" {{action 'cancel'}}>Cancel</a>
     </div>
 </div>
 {{yield}}
