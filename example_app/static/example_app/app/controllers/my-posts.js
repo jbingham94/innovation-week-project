@@ -18,6 +18,7 @@ export default Ember.Controller.extend({
             this.transitionToRoute('edit-post', {
                 post_id: post.get('id'),
                 userProfile: this.get('model.userProfile'),
+                userProfiles: this.get('model.userProfiles'),
                 post: post,
                 categories: this.get('model.categories')
             });

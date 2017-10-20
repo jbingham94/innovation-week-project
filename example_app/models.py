@@ -14,6 +14,10 @@ class Secret(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField('auth.user')
 
+    @property
+    def user_username(self):
+        return self.user.username
+
     def __unicode__(self):
         return self.user.username
 
@@ -34,6 +38,7 @@ class Post(models.Model):
     score = models.IntegerField()
     upvoters = models.ManyToManyField(UserProfile, related_name='upvoters', blank=True)
     downvoters = models.ManyToManyField(UserProfile, related_name='downvoters', blank=True)
+    teammates = models.ManyToManyField(UserProfile, related_name='teammates', blank=True)
 
     @property
     def author_username(self):

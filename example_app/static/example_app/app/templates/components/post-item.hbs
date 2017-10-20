@@ -3,14 +3,24 @@
         <div class="content">
             <p class="title is-4 post-title" {{action 'goToDetail' post.id}}>{{post.title}}</p>
             <p class="subtitle is-6">{{post.authorUsername}} • {{post.categoryName}} • {{format-date post.date}}</p>
-            {{post.body}}
-            <br>
+            {{#if teammates}}
+                <div class="teammates-subtitle">
+                    <span class="has-text-weight-bold">Teammates: </span>
+                    {{#each teammates as |teammate|}}
+                        <span class="tag is-medium">
+                            {{teammate.userUsername}}
+                        </span>
+                    {{/each}}
+                </div>
+
+            {{/if}}
+            <p>{{expand-line-breaks post.body}}</p>
         </div>
     </div>
     <footer class="card-footer">
-        <div class="card-footer-item" {{action 'vote' 'up'}}><i class="fa fa-chevron-up fa-lg {{if voteTracker.upvoted 'has-text-success' ''}}"/></div>
+        <div class="card-footer-item vote-button" {{action 'vote' 'up'}}><i class="fa fa-chevron-up fa-lg {{if voteTracker.upvoted 'has-text-success' ''}}"/></div>
         <div class="card-footer-item">{{post.score}}</div>
-        <div class="card-footer-item" {{action 'vote' 'down'}}><i class="fa fa-chevron-down fa-lg {{if voteTracker.downvoted 'has-text-danger' ''}}"/></div>
+        <div class="card-footer-item vote-button" {{action 'vote' 'down'}}><i class="fa fa-chevron-down fa-lg {{if voteTracker.downvoted 'has-text-danger' ''}}"/></div>
     </footer>
     <footer class="card-footer">
         <a class="card-footer-item" {{action 'toggleComments'}}>{{if showComments 'Hide' 'Show'}} Comments&nbsp;<i class="fa fa-chevron-{{if showComments 'up' 'down'}}"/></a>
@@ -18,7 +28,7 @@
     {{#if showComments}}
         <div class="card-content">
             <div>
-                <div class="field is-grouped">
+                <div class="field is-grouped comment-form">
                     <p class="control is-expanded">
                         {{textarea class="textarea" placeholder="Your comment here..." value=commentText}}
                     </p>
@@ -31,7 +41,7 @@
             </div>
             <div class="content">
                 {{#each displayedComments as |comment|}}
-                    {{comment-item comment=comment allComments=comments post=post colorClass='white-comment' userProfile=userProfile action='deleteComment'}}
+                    {{comment-item comment=comment allComments=comments post=post colorClass='white-comment' userProfile=userProfile action='deleteComment' isBaseComment=true}}
                 {{/each}}
             </div>
         </div>

@@ -24,6 +24,10 @@ export default Ember.Component.extend({
         return this.get('comments').filter(comment => comment.belongsTo('post').id() === this.get('post.id') && comment.belongsTo('parent').id() === null);
     }),
 
+    teammates: Ember.computed(function() {
+        return this.get('userProfiles').filter(profile => this.get('post').hasMany('teammates').ids().indexOf(profile.get('id')) !== -1);
+    }),
+
     actions: {
         toggleComments() {
             this.set('showComments', !this.get('showComments'));
@@ -74,6 +78,7 @@ export default Ember.Component.extend({
         },
 
         goToDetail(id) {
+            this.sendAction();
             this.get('router').transitionTo('post', {
                 post_id: id,
                 post: this.get('post'),

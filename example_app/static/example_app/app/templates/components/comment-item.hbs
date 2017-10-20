@@ -1,6 +1,6 @@
-<div class="comment rounded {{if indent 'indented' ''}} {{colorClass}}">
+<div class="{{if isBaseComment 'base-comment' 'comment'}} rounded {{if indent 'indented' ''}} {{colorClass}}">
     <span class="subtitle is-6 has-text-weight-bold">{{comment.authorUsername}}</span><span> • {{format-date comment.date}}</span>
-    <p>{{comment.text}}</p>
+    <p>{{expand-line-breaks comment.text}}</p>
     <a {{action 'toggleReplyField'}}>{{if showReplyField 'Cancel' 'Reply'}}</a>{{#if userIsAuthor}} • <a {{action 'sendDeleteComment'}}>Delete</a>{{/if}}
     {{#if showReplyField}}
         <div class="field is-grouped reply-form">
@@ -16,7 +16,7 @@
     {{/if}}
     {{#if children}}
         {{#each children as |child|}}
-            {{comment-item comment=child indent=true allComments=allComments post=post userProfile=userProfile colorClass=childColor action='deleteComment'}}
+            {{comment-item comment=child indent=true allComments=allComments post=post userProfile=userProfile colorClass=childColor action='deleteComment' isBaseComment=false}}
         {{/each}}
     {{/if}}
 </div>

@@ -14,5 +14,5 @@ export default Ember.Helper.helper(function(params) {
     var monthIndex = date.getMonth();
     var year = date.getFullYear();
 
-    return monthNames[monthIndex] + ' ' + day + ' ' + year;
+    return monthNames[monthIndex] + ' ' + day + ', ' + year;
 });

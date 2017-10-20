@@ -10,5 +10,6 @@ export default DS.Model.extend({
     body: DS.attr('string'),
     score: DS.attr('number'),
     upvoters: DS.hasMany('user-profile'),
-    downvoters: DS.hasMany('user-profile')
+    downvoters: DS.hasMany('user-profile'),
+    teammates: DS.hasMany('user-profile')
 });
