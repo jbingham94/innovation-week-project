@@ -33,6 +33,7 @@ from example_app.views import (
     CommentListAPIView,
     CommentDetailAPIView,
     SetPasswordView,
+    ResetPasswordView
 )
 
 urlpatterns = [
@@ -52,6 +53,7 @@ urlpatterns = [
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         activate, name='activate'),
     url(r'^api/set-password/$', SetPasswordView.as_view(), name='set_password_view'),
+    url(r'^api/reset-password/$', ResetPasswordView.as_view(), name='reset_password_view'),
     url(r'^api/comments/(?P<pk>\d+)/$', CommentDetailAPIView.as_view(), name="comment_detail_api_view"),
     url(r'^', index_view, name="index_view"),
 ]

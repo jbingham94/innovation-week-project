@@ -10,7 +10,21 @@
 </div>
 <div class="field is-grouped filter-posts">
     <p class="control">
-        <button class="button is-success" {{action 'authenticate'}} disabled={{submitDisabled}}>Sign Up</button>
+        <button class="button is-success" {{action 'register'}} disabled={{submitDisabled}}>Sign Up</button>
     </p>
 </div>
+{{#if signupComplete}}
+    <article class="message is-success">
+        <div class="message-body">
+            Please check your email to complete the signup process.
+        </div>
+    </article>
+{{/if}}
+{{#if error}}
+    <article class="message is-danger">
+        <div class="message-body">
+            We could not initiate the signup process with the given input. Please try again.
+        </div>
+    </article>
+{{/if}}
 {{yield}}

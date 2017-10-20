@@ -14,15 +14,6 @@ export default Ember.Controller.extend({
 
             showSignupForm() {
                 this.setProperties({showLoginForm: false, showSignupForm: true});
-            },
-
-            authenticate() {
-                let credentials = this.getProperties('identification', 'password'),
-                    authenticator = 'authenticator:token';
-
-                this.get('session').authenticate(authenticator, credentials).catch((reason) => {
-                    this.set('errorMessage', reason.non_field_errors || reason);
-                });
             }
       }
 });

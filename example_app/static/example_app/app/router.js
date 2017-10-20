@@ -7,15 +7,14 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('login');
   this.route('secret');
   this.route('posts');
   this.route('create-post');
   this.route('post', { path: '/post/:post_id' });
   this.route('my-posts');
   this.route('edit-post', { path: '/edit-post/:post_id' });
-  this.route('signup');
-  this.route('set-password');
+  this.route('reset-password');
+  this.route('login');
 });
 
 export default Router;

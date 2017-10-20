@@ -73,6 +73,32 @@ class SetPasswordView(views.APIView):
             user = User.objects.filter(pk=self.request.user.id)
 
 
+class ResetPasswordView(views.APIView):
+    throttle_classes = ()
+    permission_classes = ()
+    parser_classes = (parsers.FormParser, parsers.MultiPartParser, parsers.JSONParser,)
+    renderer_classes = (renderers.JSONRenderer,)
+
+    def post(self, request):
+        try:
+            user = User.objects.get(id=int(request.data['user_id']))
+            print user
+            print user.check_password(request.data['old_password'])
+            if not user.check_password(request.data['old_password']):
+                return JsonResponse({"error": "Old password incorrect"}, status=400)
+            else:
+                try:
+                    user.set_password(request.data['new_password'])
+                    user.save()
+                    response_data = {}
+                    response_data['message'] = 'Reset password successful'
+                    return HttpResponse(json.dumps(response_data), status=200, content_type='application/json')
+                except:
+                    return JsonResponse({"error": "Old password incorrect"}, status=400)
+        except:
+            return JsonResponse({"error": "Unable to parse request body"}, status=400)
+
+
 class SaveNewUserView(views.APIView):
     throttle_classes = ()
     permission_classes = ()
@@ -99,6 +125,8 @@ class SaveNewUserView(views.APIView):
                                             form.cleaned_data["email"],
                                             password)
             user.save()
+            user_profile = UserProfile.objects.create(user=user)
+            user_profile.save()
             current_site = get_current_site(request)
             message = render_to_string('acc_active_email.html', {
                 'user': user,
@@ -111,7 +139,9 @@ class SaveNewUserView(views.APIView):
             to_email = form.cleaned_data.get('email')
             email = EmailMessage(mail_subject, message, to=[to_email])
             email.send()
-            return HttpResponse('Please confirm your email address to complete the registration')
+            response_data = {}
+            response_data['message'] = 'Please confirm your email address to complete the registration'
+            return HttpResponse(json.dumps(response_data), status=201, content_type='application/json')
 
         return HttpResponse(form.errors.as_json(), status=400, content_type="application/json")
 
