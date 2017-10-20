@@ -5,6 +5,8 @@ import json
 import pdb
 from django.contrib.auth.forms import SetPasswordForm
 from django.conf import settings
+import string
+import random
 from django.http import JsonResponse
 from .forms import SignupForm
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, RetrieveAPIView
@@ -44,12 +46,8 @@ def activate(request, uidb64, token):
         user.backend = 'django.contrib.auth.backends.ModelBackend'
         user.save()
         login(request, user)
-        if user.is_authenticated:
-            print "it's good"
-        else:
-            print "shiiieet"
 
-        return redirect('/set-password')
+        return redirect('/login')
         # return redirect('http://' + current_site.domain + '/set-password/')
         # return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
     else:
@@ -96,9 +94,10 @@ class SaveNewUserView(views.APIView):
         form = SignupForm(payload)
 
         if form.is_valid():
+            password = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20))
             user = User.objects.create_user(form.cleaned_data["username"],
                                             form.cleaned_data["email"],
-                                            form.cleaned_data["password1"])
+                                            password)
             user.save()
             current_site = get_current_site(request)
             message = render_to_string('acc_active_email.html', {
@@ -106,6 +105,7 @@ class SaveNewUserView(views.APIView):
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': account_activation_token.make_token(user),
+                'password': password
             })
             mail_subject = 'Activate your account.'
             to_email = form.cleaned_data.get('email')
