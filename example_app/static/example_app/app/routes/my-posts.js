@@ -9,8 +9,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
             posts: this.store.findAll('post'),
             categories: this.store.findAll('category'),
             comments: this.store.findAll('comment'),
-            userProfiles: this.store.findAll('user-profile'),
-            userProfile: this.store.findRecord('user-profile', this.get('session.session.authenticated.user_id')),
+            userProfiles: this.store.findAll('user-profile')
         });
     }
 });

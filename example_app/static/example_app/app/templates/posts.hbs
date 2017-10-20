@@ -56,7 +56,7 @@
 <br>
 {{#if displayedPosts}}
     {{#each displayedPosts as |post|}}
-        {{post-item post=post comments=model.comments isDetail=false userProfile=model.userProfile userProfiles=model.userProfiles action='clearFilters'}}
+        {{post-item post=post comments=model.comments isDetail=false userProfile=userProfile userProfiles=model.userProfiles action='clearFilters'}}
         <br>
     {{/each}}
 {{else}}

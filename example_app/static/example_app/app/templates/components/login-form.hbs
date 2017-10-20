@@ -1,0 +1,25 @@
+<div class="field">
+    <label class="label">Username</label>
+    <div class="control">
+        {{input class="input" type="text" placeholder="Enter username..." value=identification}}
+    </div>
+</div>
+<div class="field">
+    <label class="label">Password</label>
+    <div class="control">
+        {{input class="input" type="password" placeholder="Enter password..." value=password}}
+    </div>
+</div>
+<div class="field is-grouped filter-posts">
+    <p class="control">
+        <a class="button is-link" {{action 'authenticate'}}>Login</a>
+    </p>
+</div>
+{{#if errorMessage}}
+    <article class="message is-danger">
+        <div class="message-body">
+            {{errorMessage}}
+        </div>
+    </article>
+{{/if}}
+{{yield}}

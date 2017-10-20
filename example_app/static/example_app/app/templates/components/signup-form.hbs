@@ -1,0 +1,16 @@
+<div class="field">
+    <label class="label">Alarm.com Username</label>
+    <div class="control">
+        {{input class="input" type="text" placeholder="Enter username..." value=identification}}
+    </div>
+</div>
+<div class="field">
+    <label class="label">Email</label>
+    <p>{{email}}</p>
+</div>
+<div class="field is-grouped filter-posts">
+    <p class="control">
+        <button class="button is-success" {{action 'authenticate'}} disabled={{submitDisabled}}>Sign Up</button>
+    </p>
+</div>
+{{yield}}

@@ -1,9 +1,6 @@
 <nav class="navbar is-black" role="navigation" aria-label="main navigation">
     <div class="navbar-item">
-        {{link-to "Home" "application" class="nav-link"}}
-    </div>
-    <div class="navbar-item">
-        {{link-to "Ideas" "posts" class="nav-link"}}
+        {{link-to "Home" "posts" class="nav-link"}}
     </div>
     <div class="navbar-item">
         {{link-to "New Idea" "create-post" class="nav-link"}}
@@ -34,6 +31,31 @@
 <div class="columns is-mobile is-centered">
     <div class="column is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-half-widescreen is-half-fullhd">
         <br>
+        {{#unless session.isAuthenticated}}
+            <div class="wrapper">
+                <p class="title is-3 has-text-centered">Welcome!</p>
+                <p class="subtitle is-6 has-text-centered">Innovation Hub is a site where you can share, discuss, and vote on ideas for Alarm.com's Innovation Week.</p>
+                <div class="field is-grouped filter-posts">
+                    <p class="control">
+                        <a class="button is-link" {{action 'showLoginForm'}}>Login</a>
+                    </p>
+                    <p class="control">
+                        <a class="button is-success" {{action 'showSignupForm'}}>Sign Up</a>
+                    </p>
+                </div>
+                <div class="columns is-centered">
+                    <div class="column is-half-mobile is-half-tablet is-one-third-desktop is-one-third-widescreen is-one-third-fullhd is-centered">
+                        {{#if showLoginForm}}
+                            <br>
+                            {{login-form}}
+                        {{/if}}
+                        {{#if showSignupForm}}
+                            {{signup-form}}
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        {{/unless}}
         {{outlet}}
     </div>
 </div>

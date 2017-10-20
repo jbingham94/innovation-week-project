@@ -6,9 +6,13 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
     model() {
         return Ember.RSVP.hash({
+<<<<<<< Updated upstream
             userProfile: this.store.findRecord('user-profile', this.get('session.session.authenticated.user_id')),
             userProfiles: this.store.findAll('user-profile'),
+=======
+>>>>>>> Stashed changes
             categories: this.store.findAll('category'),
+            userProfiles: this.store.findAll('user-profile')
         });
     }
 });
