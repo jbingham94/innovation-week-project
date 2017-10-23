@@ -28,12 +28,16 @@ export default Ember.Component.extend({
         return this.get('userProfiles').filter(profile => this.get('post').hasMany('teammates').ids().indexOf(profile.get('id')) !== -1);
     }),
 
+    isVoting: false,
+
     actions: {
         toggleComments() {
             this.set('showComments', !this.get('showComments'));
         },
 
         vote(direction) {
+            this.set('isVoting', true); // Lock buttons
+
             const otherDirection = direction === 'up' ? 'down' : 'up';
 
             let currentScore = this.get('post.score'),
@@ -55,7 +59,9 @@ export default Ember.Component.extend({
 
             this.set(`post.${direction}voters`, this.get('userProfiles').filter(profile => directionVoters.contains(profile.get('id'))));
             this.set(`post.${otherDirection}voters`, this.get('userProfiles').filter(profile => otherDirectionVoters.contains(profile.get('id'))));
-            this.get('post').save();
+            this.get('post').save().then(() => {
+                this.set('isVoting', false);
+            });
         },
 
         createComment() {

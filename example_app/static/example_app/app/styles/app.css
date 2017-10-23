@@ -89,3 +89,7 @@ html {
     margin-top: -1rem;
     margin-bottom: 20px;
 }
+
+.button-disabled {
+    pointer-events: none;
+}

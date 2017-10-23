@@ -120,8 +120,8 @@ USE_TZ = True
 # Confirmation email settings
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'datboibrusco@gmail.com'
-EMAIL_HOST_PASSWORD = 'January28'
+EMAIL_HOST_USER = 'alarm.innovation.hub@gmail.com'
+EMAIL_HOST_PASSWORD = 'ADCInnovation17'
 EMAIL_PORT = 587
 
 

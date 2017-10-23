@@ -17,6 +17,9 @@
                         {{link-to "My Ideas" "my-posts" class="dropdown-link"}}
                     </div>
                     <div class="navbar-item">
+                        {{link-to "Reset Password" "reset-password" class="dropdown-link"}}
+                    </div>
+                    <div class="navbar-item">
                         <a href="" class="dropdown-link" {{action 'invalidateSession'}}>Logout</a>
                     </div>
                 </div>
@@ -42,7 +45,6 @@
                 <div class="columns is-centered">
                     <div class="column is-half-mobile is-half-tablet is-one-third-desktop is-one-third-widescreen is-one-third-fullhd is-centered">
                         {{#if showLoginForm}}
-                            <br>
                             {{login-form}}
                         {{/if}}
                         {{#if showSignupForm}}
