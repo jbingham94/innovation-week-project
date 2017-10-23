@@ -17,7 +17,7 @@
         </div>
         <div class="dropdown-menu" id="dropdown-menu" role="menu">
             <div class="dropdown-content">
-                {{#each categories as |category|}}
+                {{#each sortedCategories as |category|}}
                     <a href="#" class="dropdown-item" {{action 'setCategory' category}}>
                         {{category.name}}
                     </a>

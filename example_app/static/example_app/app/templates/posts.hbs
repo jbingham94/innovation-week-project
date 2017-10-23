@@ -18,7 +18,7 @@
                 </div>
                 <div class="dropdown-menu" id="dropdown-menu" role="menu">
                     <div class="dropdown-content">
-                        {{#each model.categories as |category|}}
+                        {{#each sortedCategories as |category|}}
                             <a href="#" class="dropdown-item" {{action 'setCategoryFilter' category}}>
                                 {{category.name}}
                             </a>

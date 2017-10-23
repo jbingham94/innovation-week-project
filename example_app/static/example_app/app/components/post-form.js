@@ -33,6 +33,10 @@ export default Ember.Component.extend({
         return this.get('availableTeammates').filter(teammate => teammate.get('userUsername').includes(this.get('searchText')));
     }),
 
+    sortedCategories: Ember.computed.sort('categories', 'categoriesSortBy'),
+
+    categoriesSortBy: ['name'],
+
     actions: {
         toggleDropdown() {
             this.set('showDropdown', this.get('showDropdown') ? !this.get('showDropdown') : true);

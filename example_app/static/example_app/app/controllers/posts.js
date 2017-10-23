@@ -7,7 +7,9 @@ export default Ember.Controller.extend({
         return this.get('model.userProfiles').find(profile => profile.belongsTo('user').id() === this.get('session.data.authenticated.user_id').toString());
     }),
 
-    sortedPosts: Ember.computed.sort('model.posts', 'sortBy'),
+    sortedPosts: Ember.computed.sort('model.posts', 'postsSortBy'),
+
+    sortedCategories: Ember.computed.sort('model.categories', 'categoriesSortBy'),
 
     displayedPosts: Ember.computed('categoryFilter', 'searchText', 'sortedPosts', function() {
         let posts = this.get('sortedPosts');
@@ -23,9 +25,11 @@ export default Ember.Controller.extend({
         return posts;
     }),
 
-    sortBy: Ember.computed('mainFilter', function() {
+    postsSortBy: Ember.computed('mainFilter', function() {
         return [this.get('mainFilter') === 'Recent' ? 'date:desc' : 'score:desc'];
     }),
+
+    categoriesSortBy: ['name'],
 
     mainFilter: 'Recent',
 
