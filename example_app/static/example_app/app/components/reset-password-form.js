@@ -8,6 +8,8 @@ export default Ember.Component.extend({
 
     resetFailed: false,
 
+    resetSuccess: false,
+
     submitDisabled: Ember.computed('oldPassword', 'newPassword', 'confirmNewPassword', 'passwordsDoNotMatch', 'newPasswordSame', function() {
         return !this.get('oldPassword') || !this.get('newPassword') || !this.get('confirmNewPassword') || this.get('passwordsDoNotMatch') || this.get('newPasswordSame');
     }),
@@ -41,8 +43,10 @@ export default Ember.Component.extend({
                 contentType: 'application/json;charset=utf-8',
                 dataType: 'json'
             }).then((response) => {
-                this.send('clearForm');
-                this.get('router').transitionTo('posts');
+                this.set('resetSuccess', true);
+                setTimeout(() => {
+                    this.get('router').transitionTo('posts');
+                }, 2000);
             }, (xhr, status, error) => {
                 this.set('resetFailed', true);
             });
