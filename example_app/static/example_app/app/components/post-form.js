@@ -16,7 +16,7 @@ export default Ember.Component.extend({
     }),
 
     teammates: Ember.computed(function() {
-        return this.get('post') ? this.get('userProfiles').filter(profile => this.get('post').hasMany('teammates').ids().indexOf(profile.get('id')) != -1) : [];
+        return this.get('post') ? this.get('userProfiles').filter(profile => this.get('post').hasMany('teammates').ids().indexOf(profile.get('id')) !== -1) : [];
     }),
 
     submitDisabled: Ember.computed('title', 'category', 'body', function() {

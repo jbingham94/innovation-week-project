@@ -17,7 +17,7 @@ export default Ember.Component.extend({
             let confirm_password = 'ADCpassword1!';
 
             Ember.$.ajax({
-                url: ENV.host + '/api/signup/',
+                url: '/api/signup/',
                 type: 'POST',
                 data: JSON.stringify({
                     username: username,

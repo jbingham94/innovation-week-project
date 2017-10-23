@@ -20,7 +20,8 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
-      ENV.host = 'http://localhost:8000';
+      ENV.API_URL = 'http://localhost:8000'; // Replace this with your own deployed domain
+      ENV.APP.API_HOST = 'http://localhost:8000'; // Replace this with your own deployed domain
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
@@ -40,8 +41,8 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.API_URL = 'https://yourdomain.com'; // Replace this with your own deployed domain
-    ENV.APP.API_HOST = 'https://yourdomain.com'; // Replace this with your own deployed domain
+    ENV.API_URL = 'http://innovation-hub'; // Replace this with your own deployed domain
+    ENV.APP.API_HOST = 'http://innovation-hub'; // Replace this with your own deployed domain
   }
   ENV['ember-simple-auth'] = {
     authorizer: 'authorizer:token'

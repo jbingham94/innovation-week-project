@@ -31,7 +31,7 @@ export default Ember.Component.extend({
     actions: {
         resetPassword() {
             Ember.$.ajax({
-                url: ENV.host + '/api/reset-password/',
+                url: '/api/reset-password/',
                 type: 'POST',
                 data: JSON.stringify({
                     user_id: this.get('session.data.authenticated.user_id'),
