@@ -11,7 +11,7 @@
 
 Now you're ready to open a new terminal tab or however you want to start a new process.
 
-#### Setting up the frontend
+#### Frontend
 
  - Change the current directory to `example_app/static/example_app/`
  - Install your frontend dependencies by running the command `npm install`. This can take a while.
