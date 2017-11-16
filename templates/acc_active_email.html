@@ -1,9 +1,7 @@
 {% autoescape off %}
-Hi {{ user.username }},
+<p>Hi {{ user.username }},</p>
 
-Your temporary password is {{ password }}.
+<p>Your temporary password is {{ password }}.</p>
 
-Please login at the link below with this password and then reset your password to one of your choosing.
-
-http://{{ domain }}/reset-password/
+<p>Please login <a href="http://{{ domain }}/reset-password/">here</a> with this password and then reset your password to one of your choosing.</p>
 {% endautoescape %}

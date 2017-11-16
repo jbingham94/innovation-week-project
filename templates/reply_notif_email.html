@@ -1,0 +1,9 @@
+{% autoescape off %}
+<p>Hi {{ parent_author.user.username }},</p>
+
+<p>{{ reply_author.user.username }} replied to your comment on "{{ post.title }}":</p>
+
+<p style="margin-left:24px;">"{{ reply.text }}"</p>
+
+<p>You can reply and see other comments <a href="http://{{ domain }}/post/{{ post.id }}">here</a>.</p>
+{% endautoescape %}

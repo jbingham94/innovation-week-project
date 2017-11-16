@@ -1,10 +1,6 @@
 
-from django.shortcuts import render
-from django.contrib.auth.models import User
 import json
-import pdb
 from django.contrib.auth.forms import SetPasswordForm
-from django.conf import settings
 import string
 import random
 from django.http import JsonResponse
@@ -82,8 +78,6 @@ class ResetPasswordView(views.APIView):
     def post(self, request):
         try:
             user = User.objects.get(id=int(request.data['user_id']))
-            print user
-            print user.check_password(request.data['old_password'])
             if not user.check_password(request.data['old_password']):
                 return JsonResponse({"error": "Old password incorrect"}, status=400)
             else:
@@ -106,12 +100,6 @@ class SaveNewUserView(views.APIView):
     renderer_classes = (renderers.JSONRenderer,)
 
     def post(self, request):
-        """
-            api endpoint to register a new user
-            :param request:
-            :return:
-            """
-        print "Save New User Hits!"
         try:
             payload = json.loads(request.body)
         except ValueError:
@@ -136,6 +124,7 @@ class SaveNewUserView(views.APIView):
             mail_subject = 'Activate your account'
             to_email = form.cleaned_data.get('email')
             email = EmailMessage(mail_subject, message, to=[to_email])
+            email.content_subtype = 'html'
             email.send()
             response_data = {}
             response_data['message'] = 'Please confirm your email address to complete the registration'
@@ -156,6 +145,26 @@ class ObtainAuthToken(views.APIView):
         user = serializer.validated_data['user']
         token, created = Token.objects.get_or_create(user=user)
         return Response({'token': token.key, 'user_id': user.pk})
+
+
+class SendCommentNotificationView(views.APIView):
+    throttle_classes = ()
+    permission_classes = ()
+    parser_classes = (parsers.FormParser, parsers.MultiPartParser, parsers.JSONParser,)
+    renderer_classes = (renderers.JSONRenderer,)
+
+    def post(self, request):
+        try:
+            comment = Comment.objects.get(id=int(request.data['comment']))
+            if comment.parent is None:
+                if comment.post.author.id != comment.author.id:
+                    send_comment_notification_email(request, comment.post.author, comment.post, comment)
+            else:
+                if comment.parent.author.id != comment.author.id:
+                    send_reply_notification_email(request, comment.parent.author, comment.post, comment)
+            return JsonResponse({"message": "Added comment"}, status=201)
+        except:
+            return JsonResponse({"error": "Unable to send notification"}, status=400)
 
 
 class SecretListAPIView(ListCreateAPIView):
@@ -233,3 +242,35 @@ class CommentDetailAPIView(RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return Comment.objects.all()
+
+
+def send_comment_notification_email(request, post_author, post, comment):
+    comment_author = comment.author
+    current_site = get_current_site(request)
+    message = render_to_string('comment_notif_email.html', {
+        'post_author': post_author,
+        'comment_author': comment_author,
+        'post': post,
+        'comment': comment,
+        'domain': current_site.domain
+    })
+    mail_subject = 'New comment on your idea'
+    email = EmailMessage(mail_subject, message, to=[post_author.user.email])
+    email.content_subtype = 'html'
+    email.send()
+
+
+def send_reply_notification_email(request, parent_author, post, reply):
+    reply_author = reply.author
+    current_site = get_current_site(request)
+    message = render_to_string('reply_notif_email.html', {
+        'parent_author': parent_author,
+        'reply_author': reply_author,
+        'post': post,
+        'reply': reply,
+        'domain': current_site.domain
+    })
+    mail_subject = 'New reply to your comment'
+    email = EmailMessage(mail_subject, message, to=[parent_author.user.email])
+    email.content_subtype = 'html'
+    email.send()

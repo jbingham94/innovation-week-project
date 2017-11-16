@@ -24,6 +24,14 @@ export default Ember.Component.extend({
         return this.get('comments').filter(comment => comment.belongsTo('post').id() === this.get('post.id') && comment.belongsTo('parent').id() === null);
     }),
 
+    commentsCount: Ember.computed('comments', function() {
+        return this.get('comments').filter(comment => comment.belongsTo('post').id() === this.get('post.id')).length;
+    }),
+
+    areComments: Ember.computed('commentsCount', function() {
+        return this.get('commentsCount') > 0;
+    }),
+
     teammates: Ember.computed(function() {
         return this.get('userProfiles').filter(profile => this.get('post').hasMany('teammates').ids().indexOf(profile.get('id')) !== -1);
     }),
@@ -71,9 +79,18 @@ export default Ember.Component.extend({
                 text: this.get('commentText'),
                 date: new Date()
             });
-            comment.save().then(() => {
+            comment.save().then((response) => {
                 this.set('commentText', '');
                 this.get('displayedComments').pushObject(comment);
+                Ember.$.ajax({
+                    url: '/api/send-comment-notification/',
+                    type: 'POST',
+                    data: JSON.stringify({
+                        'comment': comment.get('id')
+                    }),
+                    contentType: 'application/json;charset=utf-8',
+                    dataType: 'json'
+                });
             });
         },
 

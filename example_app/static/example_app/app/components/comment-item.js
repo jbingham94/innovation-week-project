@@ -36,10 +36,19 @@ export default Ember.Component.extend({
                 date: new Date(),
                 parent: this.get('comment')
             });
-            reply.save().then(() => {
+            reply.save().then((response) => {
                 this.set('replyText', '');
                 this.set('showReplyField', false);
                 this.get('children').pushObject(reply);
+                Ember.$.ajax({
+                    url: '/api/send-comment-notification/',
+                    type: 'POST',
+                    data: JSON.stringify({
+                        'comment': reply.get('id')
+                    }),
+                    contentType: 'application/json;charset=utf-8',
+                    dataType: 'json'
+                });
             });
         },
 

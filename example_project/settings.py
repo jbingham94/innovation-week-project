@@ -127,6 +127,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'alarm.innovation.hub@gmail.com'
 EMAIL_HOST_PASSWORD = 'ADCInnovation17'
 EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL='Innovation Hub <alarm.innovation.hub@gmail.com>'
 
 
 # Static files (CSS, JavaScript, Images)

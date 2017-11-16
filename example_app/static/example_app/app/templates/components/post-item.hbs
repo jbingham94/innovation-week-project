@@ -23,7 +23,7 @@
         <div class="card-footer-item vote-button {{if isVoting 'button-disabled' ''}}" {{action 'vote' 'down'}}><i class="fa fa-chevron-down fa-lg {{if voteTracker.downvoted 'has-text-danger' ''}}"/></div>
     </footer>
     <footer class="card-footer">
-        <a class="card-footer-item" {{action 'toggleComments'}}>{{if showComments 'Hide' 'Show'}} Comments&nbsp;<i class="fa fa-chevron-{{if showComments 'up' 'down'}}"/></a>
+        <a class="card-footer-item" {{action 'toggleComments'}}>Comments {{#if areComments}}({{commentsCount}}){{/if}}&nbsp;<i class="fa fa-chevron-{{if showComments 'up' 'down'}}"/></a>
     </footer>
     {{#if showComments}}
         <div class="card-content">
