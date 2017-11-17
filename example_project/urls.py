@@ -34,7 +34,8 @@ from example_app.views import (
     CommentDetailAPIView,
     SetPasswordView,
     ResetPasswordView,
-    SendCommentNotificationView
+    SendCommentNotificationView,
+    VoteView
 )
 
 urlpatterns = [
@@ -57,5 +58,6 @@ urlpatterns = [
     url(r'^api/reset-password/$', ResetPasswordView.as_view(), name='reset_password_view'),
     url(r'^api/comments/(?P<pk>\d+)/$', CommentDetailAPIView.as_view(), name="comment_detail_api_view"),
     url(r'^api/send-comment-notification', SendCommentNotificationView.as_view(), name='send_comment_notification_view'),
+    url(r'^api/vote', VoteView.as_view(), name='vote_view'),
     url(r'^', index_view, name="index_view"),
 ]

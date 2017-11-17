@@ -1,11 +1,5 @@
 import Ember from 'ember';
 
-function voteHelper(direction, currentScore, magnitude, isUndo) {
-    return isUndo
-        ? (direction === 'up' ? currentScore - magnitude : currentScore + magnitude)
-        : (direction === 'up' ? currentScore + magnitude : currentScore - magnitude);
-}
-
 export default Ember.Component.extend({
     showComments: false,
 
@@ -38,6 +32,10 @@ export default Ember.Component.extend({
 
     isVoting: false,
 
+    score: Ember.computed('post.upvoters.@each', 'post.downvoters.@each', function() {
+        return this.get('post.upvoters.length') - this.get('post.downvoters.length');
+    }),
+
     actions: {
         toggleComments() {
             this.set('showComments', !this.get('showComments'));
@@ -48,14 +46,7 @@ export default Ember.Component.extend({
 
             const otherDirection = direction === 'up' ? 'down' : 'up';
 
-            let currentScore = this.get('post.score'),
-                [ directionVoters, otherDirectionVoters ] = [ direction, otherDirection ].map(d => this.get('post').hasMany(`${d}voters`).ids());
-
-            this.set('post.score', this.get(`voteTracker.${direction}voted`)
-                ? voteHelper(direction, currentScore, 1, true)  // Undoing vote
-                : (this.get(`voteTracker.${otherDirection}voted`)
-                    ? voteHelper(direction, currentScore, 2, false)  // Switching vote type
-                    : voteHelper(direction, currentScore, 1, false)));  // Fresh vote
+            let [ directionVoters, otherDirectionVoters ] = [ direction, otherDirection ].map(d => this.get('post').hasMany(`${d}voters`).ids());
 
             if (this.get(`voteTracker.${direction}voted`)) {
                 directionVoters.splice(directionVoters.indexOf(this.get('userProfile.id')), 1);  // Undoing vote
@@ -67,9 +58,17 @@ export default Ember.Component.extend({
 
             this.set(`post.${direction}voters`, this.get('userProfiles').filter(profile => directionVoters.contains(profile.get('id'))));
             this.set(`post.${otherDirection}voters`, this.get('userProfiles').filter(profile => otherDirectionVoters.contains(profile.get('id'))));
-            this.get('post').save().then(() => {
-                this.set('isVoting', false);
-            });
+            Ember.$.ajax({
+                url: '/api/vote/',
+                type: 'POST',
+                data: JSON.stringify({
+                    'post': this.get('post.id'),
+                    'user': this.get('userProfile.id'),
+                    'direction': direction
+                }),
+                contentType: 'application/json;charset=utf-8',
+                dataType: 'json'
+            }).then(() => this.set('isVoting', false));
         },
 
         createComment() {

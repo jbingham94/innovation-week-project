@@ -15,6 +15,7 @@ Router.map(function() {
   this.route('edit-post', { path: '/edit-post/:post_id' });
   this.route('reset-password');
   this.route('login');
+  this.route('preferences');
 });
 
 export default Router;

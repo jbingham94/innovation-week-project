@@ -5,7 +5,7 @@ import string
 import random
 from django.http import JsonResponse
 from .forms import SignupForm
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, RetrieveAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, RetrieveAPIView, RetrieveUpdateAPIView
 from rest_framework import views
 from rest_framework import parsers
 from rest_framework import renderers
@@ -157,14 +157,44 @@ class SendCommentNotificationView(views.APIView):
         try:
             comment = Comment.objects.get(id=int(request.data['comment']))
             if comment.parent is None:
-                if comment.post.author.id != comment.author.id:
+                if comment.post.author.id != comment.author.id and comment.post.author.email_notifications:
                     send_comment_notification_email(request, comment.post.author, comment.post, comment)
             else:
-                if comment.parent.author.id != comment.author.id:
+                if comment.parent.author.id != comment.author.id and comment.parent.author.email_notifications:
                     send_reply_notification_email(request, comment.parent.author, comment.post, comment)
-            return JsonResponse({"message": "Added comment"}, status=201)
+            return JsonResponse({"message": "Sent comment notification"}, status=200)
         except:
             return JsonResponse({"error": "Unable to send notification"}, status=400)
+
+
+class VoteView(views.APIView):
+    throttle_classes = ()
+    permission_classes = ()
+    parser_classes = (parsers.FormParser, parsers.MultiPartParser, parsers.JSONParser,)
+    renderer_classes = (renderers.JSONRenderer,)
+
+    def post(self, request):
+        try:
+            post = Post.objects.get(id=int(request.data['post']))
+            user = UserProfile.objects.get(id=int(request.data['user']))
+            if request.data['direction'] == 'up':
+                if post.upvoters.filter(id=user.id).exists():
+                    post.upvoters.remove(user)
+                else:
+                    post.upvoters.add(user)
+                if post.downvoters.filter(id=user.id).exists():
+                    post.downvoters.remove(user)
+            else:
+                if post.downvoters.filter(id=user.id).exists():
+                    post.downvoters.remove(user)
+                else:
+                    post.downvoters.add(user)
+                if post.upvoters.filter(id=user.id).exists():
+                    post.upvoters.remove(user)
+            post.save()
+            return JsonResponse({"message": "Processed vote"}, status=200)
+        except:
+            return JsonResponse({"error": "Unable to save vote"}, status=400)
 
 
 class SecretListAPIView(ListCreateAPIView):
@@ -216,7 +246,7 @@ class UserProfileListAPIView(ListCreateAPIView):
         return UserProfile.objects.all()
 
 
-class UserProfileDetailAPIView(RetrieveAPIView):
+class UserProfileDetailAPIView(RetrieveUpdateAPIView):
     serializer_class = UserProfileSerializer
 
     def get_queryset(self):

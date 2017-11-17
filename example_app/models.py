@@ -13,6 +13,7 @@ class Secret(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField('auth.user')
+    email_notifications = models.BooleanField(default=True)
 
     @property
     def user_username(self):
@@ -35,7 +36,6 @@ class Post(models.Model):
     date = models.DateTimeField()
     title = models.CharField(max_length=300)
     body = models.TextField()
-    score = models.IntegerField()
     upvoters = models.ManyToManyField(UserProfile, related_name='upvoters', blank=True)
     downvoters = models.ManyToManyField(UserProfile, related_name='downvoters', blank=True)
     teammates = models.ManyToManyField(UserProfile, related_name='teammates', blank=True)

@@ -1,0 +1,25 @@
+<div class="wrapper">
+    <table class="table is-fullwidth my-posts-table">
+        <thead>
+        <tr>
+            <th>Setting</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Email Notifications</td>
+                <td width="10%">
+                    <p>{{ if userProfile.emailNotifications 'On' 'Off'}}</p>
+                </td>
+                <td width="10%">
+                    <a class="button {{ if userProfile.emailNotifications 'is-danger' 'is-primary' }}" {{action 'toggleEmailNotifications'}} disabled={{ changingSetting }}>
+                        <span>Turn {{ if userProfile.emailNotifications 'Off' 'On'}}</span>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{{outlet}}
