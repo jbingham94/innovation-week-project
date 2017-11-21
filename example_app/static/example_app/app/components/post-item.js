@@ -1,5 +1,7 @@
 import Ember from 'ember';
 
+const TEXT_DISPLAY_LENGTH = 400;
+
 export default Ember.Component.extend({
     showComments: false,
 
@@ -34,6 +36,20 @@ export default Ember.Component.extend({
 
     score: Ember.computed('post.upvoters.@each', 'post.downvoters.@each', function() {
         return this.get('post.upvoters.length') - this.get('post.downvoters.length');
+    }),
+
+    bodyExpandable: Ember.computed('post.body', function() {
+        return this.get('post.body.length') > TEXT_DISPLAY_LENGTH;
+    }),
+
+    bodyExpanded: false,
+
+    showExpandButton: Ember.computed('bodyExpandable', 'bodyExpanded', function() {
+        return this.get('bodyExpandable') && !this.get('bodyExpanded');
+    }),
+
+    contractedBody: Ember.computed(function() {
+        return this.get('bodyExpandable') ? this.get('post.body').substring(0, TEXT_DISPLAY_LENGTH + 1) : this.get('post.body');
     }),
 
     actions: {
@@ -108,6 +124,10 @@ export default Ember.Component.extend({
                 userProfiles: this.get('userProfiles'),
                 comments: this.get('comments')
             });
+        },
+
+        expandText() {
+            this.set('bodyExpanded', true);
         }
     }
 });

@@ -12,9 +12,14 @@
                         </span>
                     {{/each}}
                 </div>
-
             {{/if}}
-            <p>{{expand-line-breaks post.body}}</p>
+            <p>
+                {{#if showExpandButton}}
+                    {{expand-line-breaks contractedBody}} <a {{action 'expandText'}}>Read more...</a>
+                {{else}}
+                    {{expand-line-breaks post.body}}
+                {{/if}}
+            </p>
         </div>
     </div>
     <footer class="card-footer">
